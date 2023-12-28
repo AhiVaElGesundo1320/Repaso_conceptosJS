@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Repaso</h1>
+    <p>Clousure</p>
+    <script>
+        //Una clausura es poder acceder al ambito de una funcion externa desde una interna
+        function myCounterFunction() {
+            let number = 0;
+            function IncrementCounter() {
+                console.log(number++);
+            }
+            IncrementCounter()
+            IncrementCounter()
+            IncrementCounter()
+        }
+        myCounterFunction();
+    </script>
+
+    <p>Scope</p>
+    <script>
+        //El scope es el lugar en la que una variavble funciona y existe
+
+        var globlaA;        //variable global
+        let globalB;        //variable global
+        const globalC = ''; //variable global
+
+        function LocalScope() {
+            var scopeGlobal1;           //variable global
+            let scopeLocal1;            //variable local
+            const scopeLocal2 = '';     //variable local
+        }
+    </script>
+    <p>Hoisting</p>
+    <script>
+        //Es la manera en la que js mueve las declaraciones al momento de ejecutar las variables
+
+        function Hoisting() {
+            x = 'Hola Mundo'
+            y = '14'
+            console.log(y)
+        }
+        var x;
+        let y;
+        Hoisting()
+
+        //  myName = 'Ethan';
+        //  let myName;
+        //  console.log(myName);
+    </script>
+
+    <p>This</p>
+    <script>
+        //Se refiere al objeto que esta ejecutando el fragmento de codigo actual
+
+        //Cuando se usa en un método de objeto, this se refiere al objeto
+        function myObjectThisFunction() {
+            let person = {
+                firstName: 'Ethan',
+                lastName: 'Martinez',
+                age: 18,
+                fullNam: function () {
+                    return this.firstName + this.lastName;
+                }
+            }
+            console.log(person.fullNam())
+        }
+        myObjectThisFunction()
+
+        //Cuando se usa this solo se refiere al objeto global
+        let thisGlobal = this;
+        console.log(thisGlobal);
+
+        //En una función, el objeto global es el enlace predeterminado para this
+
+        function myThisFunction() {
+            return this
+        }
+        console.log(myThisFunction())
+
+        //En objeto this se refiere al objeto
+        function myObjectThisFunction2() {
+            let person = {
+                firstName: 'Ethan',
+                lastName: 'Martinez',
+                age: 18,
+                fullName: function () {
+                    return this;
+                }
+            }
+            console.log(person.fullName())
+        }
+        myObjectThisFunction2()
+
+
+
+        function myArrFunction() {
+            let person2 = [
+                {
+                    firstName: 'Ethan',
+                    lastName: 'Martinez',
+                    age: 18,
+                    fullName: function () {
+                        return this;
+                    }
+                }
+            ]
+        }
+
+    </script>
+    <p>Async/Await</p>
+    <script>
+
+        //llamada con promesa
+
+            const myPromise = (num1, num2) => {
+                const resultado = num1 + num2;   //se le asigna una operacion a los parm
+                return new Promise(resolve => {  //se crea una promesa
+                    setTimeout(() => {           //la promesa envuelve el setTimeout
+                        resolve(resultado);      //se le asigna el resolve de la promesa a la operacion de los parm
+                    }, 2000);
+                })
+            }
+        
+            myPromise(1, 3)                     //se llama la funcion  y se le asigna valor a los parm
+                .then(result => console.log(result));// se llama a la promesa con un then el cual tendra la llamada de la funcion y se ejecutara despues de que se cumpla el setTimeout
+        
+            //Asybc/Await
+
+        async function MyAsyncFunction() {              //se hace asincrona la funcion
+
+            let myPromise = new Promise((resolve) => {  //se crea la variable que tendra la promesa
+                setTimeout(() => {
+                    resolve('Este es un await');        //se le  asigna un valor al resolve de la promesa
+                }, 1000);
+            })
+            console.log(await myPromise)                //se le agrega el await en la llamada de la variable
+        }
+        MyAsyncFunction()                               //se llama la funcion
+
+        const data = [                                  //array de objetos o cualquier tipo de datos
+            {name: 'Ethan'},
+            {lastName: 'Martinez'},
+            {age: 18},
+            {goodProgrammer: true},
+        ]
+
+       async function awaitFunction () {            //se hace asincrona la funcion
+            return new Promise((resolve) => {       //se retorna una promesa 
+                setTimeout(() => {
+                    resolve(data);                  //se le asigna el nombre de la array al resolve de la promesa
+                }, 2000);
+            })
+          //console.log(await data)                              
+        }
+
+      awaitFunction()                               //se llama a la funcion
+      .then(result => console.log(result))          //se llama la promesa 
+
+      const data2 = [                                  //array de objetos o cualquier tipo de datos
+            {name: 'Ethan'},
+            {lastName: 'Martinez'},
+            {age: 18},
+            {goodProgrammer: true},
+        ]
+
+        async function getData() {
+           let dataPromise = new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(data)
+            }, 3000);
+           })
+           console.log(await dataPromise);
+        }
+        getData()
+    </script>
+</body>
+
+</html>
